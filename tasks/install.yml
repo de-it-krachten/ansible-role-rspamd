@@ -1,0 +1,73 @@
+---
+
+- name: Load variables based on OS type
+  include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+        - "{{ ansible_distribution }}.yml"
+        - "family-{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+        - "family-{{ ansible_os_family }}.yml"
+        - default.yml
+      paths:
+        - "vars"
+
+- block:
+
+#    - name: Download rspamd key
+#      get_url:
+#        url: "{{ rspamd_gpgkey_url }}"
+#        dest: /tmp/rspamd.key
+#        use_proxy: "{{ use_proxy|default(False) }}"
+
+    - name: Import rspamd key
+      rpm_key:
+        state: present
+        key: "{{ rspamd_gpgkey_url }}"
+
+    - name: Download yum repo definition
+      get_url:
+        url: "{{ rspamd_repo_url }}"
+        dest: /etc/yum.repos.d/rspamd.repo
+        mode: '0644'
+        use_proxy: "{{ use_proxy|default(False) }}"
+
+  when: ansible_os_family == 'RedHat'
+
+- block:
+
+#    - name: Download rspamd GPG key
+#      get_url:
+#        url: "{{ rspamd_gpgkey_url }}"
+#        dest: /tmp/rspamd.key
+#        use_proxy: "{{ use_proxy|default(False) }}"
+
+    - name: Import GPG key
+      apt_key:
+        url: "{{ rspamd_gpgkey_url }}"
+        state: present
+        # keyring: /etc/apt/trusted.gpg.d/rpsamd.gpg
+
+    - name: Add specified repository into sources list
+      apt_repository:
+        repo: deb [arch=amd64] http://rspamd.com/apt-stable/ {{ ansible_lsb['codename'] }} main
+        update_cache: yes
+        state: present
+        filename: rspamd
+
+  when: ansible_os_family == 'Debian'
+
+
+- name: Install rspamd
+  package:
+    name: "{{ rspamd_packages }}"
+
+- name: Create user
+  user:
+    name: rspamd
+
+- name: Start the rspamd servce
+  systemd:
+    name: "{{ rspamd_service }}"
+    enabled: True

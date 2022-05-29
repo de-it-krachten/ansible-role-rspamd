@@ -1,0 +1,14 @@
+---
+
+# GPG key for testing package integrity
+rspamd_gpgkey_url: https://rspamd.com/rpm-stable/gpg.key
+
+# rspamd_repo_url: https://rspamd.com/rpm-stable/{{ ansible_distribution|lower }}-{{ ansible_distribution_major_version }}/rspamd.repo
+rspamd_repo_url: https://rspamd.com/rpm-stable/centos-{{ ansible_distribution_major_version }}/rspamd.repo
+
+# List of packages to install
+rspamd_packages:
+  - rspamd
+
+# service to start/enable
+rspamd_service: rspamd

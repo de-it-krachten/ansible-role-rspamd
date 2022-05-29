@@ -1,0 +1,9 @@
+---
+
+- name: Configuring postfix (main.cf)
+  lineinfile:
+    path:   /etc/postfix/main.cf
+    regexp: "(#)?{{ item.key }}(  *)?=.*"
+    line:   "{{ item.key }} = {{ item.value if item.value is string else item.value|join(', ') }}"
+  loop: "{{ rspamd_postfix | dict2items }}"
+  notify: Restart postfix

@@ -1,0 +1,11 @@
+---
+
+# GPG key for testing package integrity
+rspamd_gpgkey_url: https://rspamd.com/apt-stable/gpg.key
+
+# List of packages to install
+rspamd_packages:
+  - rspamd
+
+# service to start/enable
+rspamd_service: rspamd

@@ -1,0 +1,69 @@
+---
+
+- name: Activate redis
+  template:
+    src: redis.conf.j2
+    dest: /etc/rspamd/local.d/redis.conf
+    owner: root
+    group: root
+    mode: "0644"
+  when: rspamd_use_redis|bool
+
+- name: Distribute configuration files
+  template:
+    src: dkim_signing.conf.j2
+    dest: /etc/rspamd/local.d/dkim_signing.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart rspamd
+
+- name: Configure worker controller password
+  template:
+    src: worker-controller.inc.j2
+    dest: /etc/rspamd/local.d/worker-controller.inc
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart rspamd
+  when: rspamd_controller_password|length > 0
+
+- name: Create DKIM directory
+  file:
+    path: /var/lib/rspamd/dkim
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Create DKIM keys
+  command: >
+    openssl genrsa -out {{ rspamd_dkim_path }}/{{ item }}.dkim.key 2048 
+  args:
+    creates: "{{ rspamd_dkim_path }}/{{ item }}.dkim.key" 
+  loop: "{{ rspamd_domains }}"
+
+- name: Extract & convert DKIM keys
+  shell: |
+    set -o pipefail
+    tmpfile=$(mktemp)
+    openssl rsa -in {{ rspamd_dkim_path }}/{{ item }}.dkim.key -pubout | grep -v "PUBLIC" | tr -d '\n'
+  args:
+    executable: /bin/bash
+  changed_when: no
+  check_mode: no
+  register: _dkim
+  loop: "{{ rspamd_domains }}"
+
+- name: Create DKIM public
+  template:
+    src: domain.key.pub.j2
+    dest: "{{ rspamd_dkim_path }}/{{ item.item }}.dkim.key.pub"
+    owner: rspamd
+    group: rspamd
+    mode: "0640"
+    backup: yes
+  loop: "{{ _dkim.results }}"
+  loop_control:
+    label:
+      - "{{ item.item }}"

@@ -1,0 +1,14 @@
+domain {
+{% for domain in rspamd_domains %}
+    {{ domain }} {
+        selector = "dkim";
+        path = "/var/lib/rspamd/dkim/{{ domain }}.dkim.key";
+    }
+{% endfor %}
+}
+sign_authenticated = true;
+use_esld = true;
+use_domain = "header";
+allow_hdrfrom_mismatch = true;
+allow_hdrfrom_mismatch_sign_networks = true;
+allow_username_mismatch = true;

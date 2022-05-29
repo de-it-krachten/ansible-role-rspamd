@@ -1,0 +1,19 @@
+---
+
+# Generic
+generic:
+  role: ansible-role-rspamd
+  role_short: rspamd
+  role_description: |
+    Installs & manages rspamd 
+
+github:
+  fail_fast: false
+
+molecule:
+  converge:
+    vars:
+      rspamd_controller_password: '$2$hrr3pjpiie499r1e7tb1p4qxm84mqeo9$rkgidupktocmsiog5wnm6z93ui9t8jrqpw8ta4sq8dty6djo5bdb'
+      rspamd_domains:
+        - example.com
+        - foo.bar
