@@ -6,8 +6,7 @@
 Installs & manages rspamd 
 
 
-Platforms
---------------
+## Platforms
 
 Supported platforms
 
@@ -25,8 +24,8 @@ Supported platforms
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
 
-Role Variables
---------------
+## Role Variables
+### defaults/main.yml
 <pre><code>
 # location of dkim config files
 rspamd_dkim_path: /var/lib/rspamd/dkim
@@ -47,16 +46,63 @@ rspamd_postfix:
   milter_protocol:                  '6'
 </pre></code>
 
+### vars/family-RedHat.yml
+<pre><code>
+# GPG key for testing package integrity
+rspamd_gpgkey_url: https://rspamd.com/rpm-stable/gpg.key
 
-Example Playbook
-----------------
+# rspamd_repo_url: https://rspamd.com/rpm-stable/{{ ansible_distribution|lower }}-{{ ansible_distribution_major_version }}/rspamd.repo
+rspamd_repo_url: https://rspamd.com/rpm-stable/centos-{{ ansible_distribution_major_version }}/rspamd.repo
 
+# List of packages to install
+rspamd_packages:
+  - rspamd
+
+# service to start/enable
+rspamd_service: rspamd
+</pre></code>
+
+### vars/family-Debian.yml
+<pre><code>
+# GPG key for testing package integrity
+rspamd_gpgkey_url: https://rspamd.com/apt-stable/gpg.key
+
+# List of packages to install
+rspamd_packages:
+  - rspamd
+
+# service to start/enable
+rspamd_service: rspamd
+</pre></code>
+
+
+
+## Example Playbook
+### molecule/default/converge.yml
 <pre><code>
 - name: sample playbook for role 'rspamd'
   hosts: all
   vars:
     rspamd_controller_password: $2$hrr3pjpiie499r1e7tb1p4qxm84mqeo9$rkgidupktocmsiog5wnm6z93ui9t8jrqpw8ta4sq8dty6djo5bdb
     rspamd_domains: ['example.com', 'foo.bar']
+    dovecot_ssl_key: "{{ openssl_server_key }}"
+    dovecot_ssl_chain: "{{ openssl_server_crt }}"
+    dovecot_domain: example.com
+    postfix_ipv6: False
+    postfix_domain: example.com
+    postfix_fqdn: host.example.com
+    postfix_ssl_key: "{{ openssl_server_key }}"
+    postfix_ssl_chain: "{{ openssl_server_crt }}"
+  pre_tasks:
+    - name: Create 'remote_tmp'
+      file:
+        path: /root/.ansible/tmp
+        state: directory
+        mode: "0700"
+  roles:
+    - cron
+    - openssl
+    - postfix
   tasks:
     - name: Include role 'rspamd'
       include_role:
