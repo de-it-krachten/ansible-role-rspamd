@@ -33,6 +33,8 @@ platforms:
   - name: Ubuntu 22.04 LTS
     image: ubuntu2204
 
+platforms_skip: []
+
 # Ansible galaxy
 galaxy:
   role_name: rspamd

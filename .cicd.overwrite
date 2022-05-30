@@ -7,10 +7,16 @@ generic:
   role_description: |
     Installs & manages rspamd 
 
+platforms_skip:
+  - name: Ubuntu 22.04 LTS
+    image: ubuntu2204
+
 github:
   fail_fast: false
 
 molecule:
+  platforms_skip:
+    - ubuntu2204
   converge:
     roles:
       - cron
