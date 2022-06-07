@@ -26,8 +26,14 @@ Note:
 ## Role Variables
 ### defaults/main.yml
 <pre><code>
+# Should rspamd take care of dkim
+rspamd_dkim_active: false
+
 # location of dkim config files
 rspamd_dkim_path: /var/lib/rspamd/dkim
+
+# dkim selector
+rspamd_dkim_selector: dkim
 
 # controller password (create using 'rspamadm pw')
 rspamd_controller_password: ''
