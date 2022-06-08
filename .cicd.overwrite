@@ -16,7 +16,8 @@ github:
 
 molecule:
   platforms_skip:
-    - ubuntu2204
+    - name: ubuntu2204
+      image: "geerlingguy/docker-ubuntu2204-ansible:latest"
   converge:
     roles:
       - cron
@@ -35,8 +36,6 @@ molecule:
       postfix_fqdn: host.example.com
       postfix_ssl_key: "{{ openssl_server_key }}"
       postfix_ssl_chain: "{{ openssl_server_crt }}"
-  deploy_keys:
-    - DEPLOYKEY_POSTFIX
 
 ci_templates:
   requirements.yml:

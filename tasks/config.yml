@@ -9,13 +9,25 @@
     mode: "0644"
   when: rspamd_use_redis|bool
 
-- name: Distribute configuration files
+- name: Enable dkim by rspamd
   template:
     src: dkim_signing.conf.j2
     dest: /etc/rspamd/local.d/dkim_signing.conf
     owner: root
     group: root
     mode: "0644"
+  when: rspamd_dkim_active|bool
+  notify: Restart rspamd
+
+- name: Disable dkim by rspamd
+  copy:
+    content: |
+      enabled = false;
+    dest: /etc/rspamd/local.d/dkim_signing.conf
+    owner: root
+    group: root
+    mode: "0644"
+  when: not rspamd_dkim_active|bool
   notify: Restart rspamd
 
 - name: Configure worker controller password
