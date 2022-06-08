@@ -16,7 +16,8 @@ github:
 
 molecule:
   platforms_skip:
-    - ubuntu2204
+    - name: ubuntu2204
+      image: "geerlingguy/docker-ubuntu2204-ansible:latest"
   converge:
     roles:
       - cron
