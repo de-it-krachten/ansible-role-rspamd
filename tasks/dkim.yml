@@ -1,0 +1,65 @@
+---
+
+- name: Disable DKIM by rspamd
+  copy:
+    content: |
+      enabled = false;
+    dest: /etc/rspamd/local.d/dkim_signing.conf
+    owner: root
+    group: root
+    mode: "0644"
+  when: not rspamd_dkim_active|bool
+  notify: Restart rspamd
+
+- block:
+
+    - name: Enable DKIM by rspamd
+      template:
+        src: dkim_signing.conf.j2
+        dest: /etc/rspamd/local.d/dkim_signing.conf
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Restart rspamd
+
+    - name: Create DKIM directory
+      file:
+        path: /var/lib/rspamd/dkim
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Create DKIM keys
+      command: >
+        openssl genrsa -out {{ rspamd_dkim_path }}/{{ item }}.dkim.key 2048
+      args:
+        creates: "{{ rspamd_dkim_path }}/{{ item }}.dkim.key"
+      loop: "{{ rspamd_domains }}"
+
+    - name: Extract & convert DKIM keys
+      shell: |
+        set -o pipefail
+        tmpfile=$(mktemp)
+        openssl rsa -in {{ rspamd_dkim_path }}/{{ item }}.dkim.key -pubout | grep -v "PUBLIC" | tr -d '\n'
+      args:
+        executable: /bin/bash
+      changed_when: no
+      check_mode: no
+      register: _dkim
+      loop: "{{ rspamd_domains }}"
+
+    - name: Create DKIM public
+      template:
+        src: domain.key.pub.j2
+        dest: "{{ rspamd_dkim_path }}/{{ item.item }}.dkim.key.pub"
+        owner: rspamd
+        group: rspamd
+        mode: "0640"
+        backup: yes
+      loop: "{{ _dkim.results }}"
+      loop_control:
+        label:
+          - "{{ item.item }}"
+
+  when: rspamd_dkim_active|bool
