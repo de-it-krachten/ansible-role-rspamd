@@ -16,4 +16,5 @@
 - include_tasks: install.yml
 - include_tasks: config.yml
 - include_tasks: dkim.yml
+- include_tasks: greylist.yml
 - include_tasks: postfix.yml
