@@ -1,3 +1,16 @@
+# [1.1.0](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.0.1...v1.1.0) (2022-06-10)
+
+
+### Bug Fixes
+
+* merge multiple 'smtpd_milters' values ([4c7c0b0](https://github.com/de-it-krachten/ansible-role-rspamd/commit/4c7c0b07b61bbfcfca92e165a13d4c83ec0cf80d))
+* move dkim tasks to separate taks list dkim.yml ([cb59492](https://github.com/de-it-krachten/ansible-role-rspamd/commit/cb59492f0b4910f5dbc85b673ca485f80d05b656))
+
+
+### Features
+
+* greylisting is now disabled (by default) ([ff27566](https://github.com/de-it-krachten/ansible-role-rspamd/commit/ff27566bba2dd150a7e7bbef6a2f1e472935f637))
+
 ## [1.0.1](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.0.0...v1.0.1) (2022-06-08)
 
 
