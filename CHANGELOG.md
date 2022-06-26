@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.1.0...v1.1.1) (2022-06-26)
+
+
+### Bug Fixes
+
+* enable dkim/greylisting by default ([2b559cf](https://github.com/de-it-krachten/ansible-role-rspamd/commit/2b559cfbeee1f47e9cdb993fbe9951a4e16161a4))
+
 # [1.1.0](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.0.1...v1.1.0) (2022-06-10)
 
 
