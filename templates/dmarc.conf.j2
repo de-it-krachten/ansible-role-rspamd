@@ -1,0 +1,21 @@
+# local.d/dmarc.conf
+  reporting {
+
+    # Required attributes
+    enabled = true; # Enable reports in general
+    email = 'dmarc_reports@{{ rspamd_domains[0] }}';  # source of the report
+    domain = '{{ rspamd_domains[0] }}'; # Domain to serve
+    org_name = '{{ rspamd_organization }}'; # Organisation
+
+    # Optional parameters
+    bcc_addrs = ["postmaster@{{ rspamd_domains[0] }}"]; # additional addresses to copy on reports
+    report_local_controller = false; # Store reports for local/controller scans (for testing only)
+    helo = 'rspamd.localhost'; # Helo used in SMTP dialog
+    smtp = '127.0.0.1'; # SMTP server IP
+    smtp_port = 25; # SMTP server port
+    from_name = 'Rspamd'; # SMTP FROM
+    msgid_from = 'rspamd'; # Msgid format
+    max_entries = 1k; # Maxiumum amount of entries per domain
+    keys_expire = 2d; # Expire date for Redis keys
+    #only_domains = '/path/to/map'; # Store reports merely from those domains
+  }

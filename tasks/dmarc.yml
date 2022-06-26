@@ -1,0 +1,40 @@
+---
+
+- name: DMARC - enabled
+  block:
+
+    - name: Enable DMARC by rspamd
+      template:
+        src: dmarc.conf.j2
+        dest: /etc/rspamd/local.d/dmarc.conf
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Restart rspamd
+
+    - name: Schedule dmarc reporting
+      cron:
+        name: DMARC reporting
+        weekday: '*'
+        minute: '00'
+        hour: '*'
+        user: "{{ rspamd_learning_user }}"
+        job: rspamadm dmarc_report
+        cron_file: rspamd-dmarc
+
+  when: rspamd_dmarc_active|bool
+
+- name: DMARC - disabled
+  block:
+
+    - name: Disable DMARC by rspamd
+      copy:
+        content: |
+          enabled = false;
+        dest: /etc/rspamd/local.d/dmarc.conf
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Restart rspamd
+
+  when: not rspamd_dmarc_active|bool

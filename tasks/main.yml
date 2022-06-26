@@ -16,5 +16,8 @@
 - include_tasks: install.yml
 - include_tasks: config.yml
 - include_tasks: dkim.yml
+- include_tasks: dmarc.yml
 - include_tasks: greylist.yml
 - include_tasks: postfix.yml
+- include_tasks: management.yml
+  when: rspamd_learning_user is defined
