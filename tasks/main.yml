@@ -1,5 +1,12 @@
 ---
 
+- name: Assertions
+  assert:
+    that:
+      - rspamd_organization is defined
+      - rspamd_controller_password is defined
+      - rspamd_domains is defined and rspamd_domains|type_debug == 'list'
+
 - name: Load variables based on OS type
   include_vars: "{{ lookup('first_found', params) }}"
   vars:
@@ -16,5 +23,8 @@
 - include_tasks: install.yml
 - include_tasks: config.yml
 - include_tasks: dkim.yml
+- include_tasks: dmarc.yml
 - include_tasks: greylist.yml
 - include_tasks: postfix.yml
+- include_tasks: management.yml
+  when: rspamd_learning_user is defined

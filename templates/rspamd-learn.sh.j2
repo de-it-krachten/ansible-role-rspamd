@@ -1,0 +1,21 @@
+#!/bin/bash
+
+RSPAMC_USER={{ rspamd_learning_user }}
+RSPAMC_SPAM=/home/${RSPAMC_USER}/Maildir/.Spam
+RSPAMC_NOTSPAM=/home/${RSPAMC_USER}/Maildir/.NotSpam
+RSPAMC_SPAM_LEARN=/home/${RSPAMC_USER}/Maildir/.Spam_learn
+RSPAMC_HAM_LEARN=/home/${RSPAMC_USER}/Maildir/.SpamNot_learn
+
+# SPAM learn
+for x in $(ls -d ${RSPAMC_SPAM_LEARN}/cur/* ${RSPAMC_SPAM_LEARN}/new/* 2>/dev/null)
+do
+  rspamc learn_spam < $x
+  mv $x ${RSPAMC_SPAM}/new/
+done
+
+# HAM learn
+for x in $(ls -d ${RSPAMC_HAM_LEARN}/cur/* ${RSPAMC_HAM_LEARN}/new/* 2>/dev/null)
+do
+  rspamc learn_ham < $x
+  mv $x ${RSPAMC_NOTSPAM}/new/
+done

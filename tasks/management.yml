@@ -1,0 +1,20 @@
+---
+
+- name: Copy spam/ham learning script
+  template:
+    src: rspamd-learn.sh.j2
+    dest: /usr/local/bin/rspamd-learn.sh
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Schedule portfix daily report
+  cron:
+    name: SPAM/HAM learning
+    weekday: '*'
+    minute: '*/5'
+    hour: '*'
+    user: "{{ rspamd_learning_user }}"
+    job: /usr/local/bin/rspamd-learn.sh >/dev/null 2>&1
+    cron_file: rspamd-learn
+  when: rspamd_learning_user is defined and rspamd_learning_user|length > 0

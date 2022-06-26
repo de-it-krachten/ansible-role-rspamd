@@ -1,10 +1,16 @@
 ---
 
+# Use redis
+rspamd_use_redis: true
+
+# Activate DMARC reporting
+rspamd_dmarc_active: true
+
 # Activate DKIM signing
-rspamd_dkim_active: false
+rspamd_dkim_active: true
 
 # Activate grey listing
-rspamd_greylist_active: false
+rspamd_greylist_active: true
 
 # location of dkim config files
 rspamd_dkim_path: /var/lib/rspamd/dkim
@@ -17,9 +23,6 @@ rspamd_controller_password: ''
 
 # List of domains
 rspamd_domains: []
-
-# Should we use redis
-rspamd_use_redis: false
 
 # Postfix setting for spamd integration
 rspamd_postfix:
