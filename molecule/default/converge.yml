@@ -3,6 +3,7 @@
 - name: Converge
   hosts: all
   vars:
+    rspamd_organization: Example Inc
     rspamd_controller_password: $2$hrr3pjpiie499r1e7tb1p4qxm84mqeo9$rkgidupktocmsiog5wnm6z93ui9t8jrqpw8ta4sq8dty6djo5bdb
     rspamd_domains: ['example.com', 'foo.bar']
     dovecot_ssl_key: "{{ openssl_server_key }}"

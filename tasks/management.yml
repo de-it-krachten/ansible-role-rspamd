@@ -17,3 +17,4 @@
     user: "{{ rspamd_learning_user }}"
     job: /usr/local/bin/rspamd-learn.sh >/dev/null 2>&1
     cron_file: rspamd-learn
+  when: rspamd_learning_user is defined and rspamd_learning_user|length > 0

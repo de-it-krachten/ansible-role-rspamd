@@ -21,6 +21,7 @@
         user: "{{ rspamd_learning_user }}"
         job: rspamadm dmarc_report
         cron_file: rspamd-dmarc
+      when: rspamd_learning_user is defined and rspamd_learning_user|length > 0
 
   when: rspamd_dmarc_active|bool
 
