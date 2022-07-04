@@ -12,13 +12,19 @@ Supported platforms
 
 - Red Hat Enterprise Linux 7<sup>1</sup>
 - Red Hat Enterprise Linux 8<sup>1</sup>
+- Red Hat Enterprise Linux 9<sup>1</sup>
 - CentOS 7
+- CentOS 8
 - RockyLinux 8
-- AlmaLinux 8<sup>1</sup>
+- OracleLinux 8
+- AlmaLinux 8
+- AlmaLinux 9
 - Debian 10 (Buster)
 - Debian 11 (Bullseye)
 - Ubuntu 18.04 LTS
 - Ubuntu 20.04 LTS
+- Fedora 35
+- Fedora 36
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
@@ -26,11 +32,17 @@ Note:
 ## Role Variables
 ### defaults/main.yml
 <pre><code>
+# Use redis
+rspamd_use_redis: true
+
+# Activate DMARC reporting
+rspamd_dmarc_active: true
+
 # Activate DKIM signing
-rspamd_dkim_active: false
+rspamd_dkim_active: true
 
 # Activate grey listing
-rspamd_greylist_active: false
+rspamd_greylist_active: true
 
 # location of dkim config files
 rspamd_dkim_path: /var/lib/rspamd/dkim
@@ -43,9 +55,6 @@ rspamd_controller_password: ''
 
 # List of domains
 rspamd_domains: []
-
-# Should we use redis
-rspamd_use_redis: false
 
 # Postfix setting for spamd integration
 rspamd_postfix:
@@ -91,6 +100,7 @@ rspamd_service: rspamd
 - name: sample playbook for role 'rspamd'
   hosts: all
   vars:
+    rspamd_organization: Example Inc
     rspamd_controller_password: $2$hrr3pjpiie499r1e7tb1p4qxm84mqeo9$rkgidupktocmsiog5wnm6z93ui9t8jrqpw8ta4sq8dty6djo5bdb
     rspamd_domains: ['example.com', 'foo.bar']
     dovecot_ssl_key: "{{ openssl_server_key }}"

@@ -7,17 +7,12 @@ generic:
   role_description: |
     Installs & manages rspamd 
 
-platforms_skip:
-  - name: Ubuntu 22.04 LTS
-    image: ubuntu2204
-
-github:
-  fail_fast: false
+platforms:
+  ubuntu2204:
+    ci: false
+    supported: false
 
 molecule:
-  platforms_skip:
-    - name: ubuntu2204
-      image: "geerlingguy/docker-ubuntu2204-ansible:latest"
   converge:
     roles:
       - cron
