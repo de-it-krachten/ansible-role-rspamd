@@ -11,7 +11,8 @@
   when: not rspamd_dkim_active|bool
   notify: Restart rspamd
 
-- block:
+- name: DKIM active
+  block:
 
     - name: Enable DKIM by rspamd
       template:
