@@ -14,6 +14,7 @@ Supported platforms
 - Red Hat Enterprise Linux 8<sup>1</sup>
 - CentOS 7
 - RockyLinux 8
+- RockyLinux 9
 - OracleLinux 8
 - AlmaLinux 8
 - Debian 10 (Buster)
@@ -94,6 +95,7 @@ rspamd_service: rspamd
 <pre><code>
 - name: sample playbook for role 'rspamd'
   hosts: all
+  become: "{{ molecule['converge']['become'] | default('yes') }}"
   vars:
     rspamd_organization: Example Inc
     rspamd_controller_password: $2$hrr3pjpiie499r1e7tb1p4qxm84mqeo9$rkgidupktocmsiog5wnm6z93ui9t8jrqpw8ta4sq8dty6djo5bdb
