@@ -11,6 +11,9 @@ platforms:
   rhel9:
     ci: false
     supported: false
+  rockylinux9:
+    ci: false
+    supported: false
   almalinux9:
     ci: false
     supported: false
