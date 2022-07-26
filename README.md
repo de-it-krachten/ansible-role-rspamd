@@ -94,6 +94,7 @@ rspamd_service: rspamd
 <pre><code>
 - name: sample playbook for role 'rspamd'
   hosts: all
+  become: "{{ molecule['converge']['become'] | default('yes') }}"
   vars:
     rspamd_organization: Example Inc
     rspamd_controller_password: $2$hrr3pjpiie499r1e7tb1p4qxm84mqeo9$rkgidupktocmsiog5wnm6z93ui9t8jrqpw8ta4sq8dty6djo5bdb
