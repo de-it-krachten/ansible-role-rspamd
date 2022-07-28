@@ -13,7 +13,8 @@
       paths:
         - "vars"
 
-- block:
+- name: family RedHat
+  block:
 
 #    - name: Download rspamd key
 #      get_url:
@@ -35,7 +36,8 @@
 
   when: ansible_os_family == 'RedHat'
 
-- block:
+- name: family Debian
+  block:
 
 #    - name: Download rspamd GPG key
 #      get_url:
