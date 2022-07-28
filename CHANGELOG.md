@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.1.1...v1.2.0) (2022-07-28)
+
+
+### Features
+
+* Implement ansible-lint v6 support ([05dde59](https://github.com/de-it-krachten/ansible-role-rspamd/commit/05dde598b394fde2ffc6b0fcfa803a13fc020d88))
+
 ## [1.1.1](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.1.0...v1.1.1) (2022-06-26)
 
 
