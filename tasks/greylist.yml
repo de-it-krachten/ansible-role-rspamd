@@ -1,12 +1,12 @@
 ---
 
 - name: Disable greylist by rspamd
-  copy:
+  ansible.builtin.copy:
     content: |
       enabled = false;
     dest: /etc/rspamd/local.d/greylist.conf
     owner: root
     group: root
     mode: "0644"
-  when: not rspamd_greylist_active|bool
+  when: not rspamd_greylist_active | bool
   notify: Restart rspamd

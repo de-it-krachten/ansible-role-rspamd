@@ -1,7 +1,7 @@
 ---
 
 - name: Load variables based on OS type
-  include_vars: "{{ lookup('first_found', params) }}"
+  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
       files:
@@ -13,63 +13,48 @@
       paths:
         - "vars"
 
-- name: family RedHat
+- name: Family RedHat
+  when: ansible_os_family == 'RedHat'
   block:
 
-#    - name: Download rspamd key
-#      get_url:
-#        url: "{{ rspamd_gpgkey_url }}"
-#        dest: /tmp/rspamd.key
-#        use_proxy: "{{ use_proxy|default(False) }}"
-
     - name: Import rspamd key
-      rpm_key:
+      ansible.builtin.rpm_key:
         state: present
         key: "{{ rspamd_gpgkey_url }}"
 
     - name: Download yum repo definition
-      get_url:
+      ansible.builtin.get_url:
         url: "{{ rspamd_repo_url }}"
         dest: /etc/yum.repos.d/rspamd.repo
         mode: '0644'
-        use_proxy: "{{ use_proxy|default(False) }}"
+        use_proxy: "{{ use_proxy | default(False) }}"
 
-  when: ansible_os_family == 'RedHat'
-
-- name: family Debian
+- name: Family Debian
+  when: ansible_os_family == 'Debian'
   block:
 
-#    - name: Download rspamd GPG key
-#      get_url:
-#        url: "{{ rspamd_gpgkey_url }}"
-#        dest: /tmp/rspamd.key
-#        use_proxy: "{{ use_proxy|default(False) }}"
-
     - name: Import GPG key
-      apt_key:
+      ansible.builtin.apt_key:
         url: "{{ rspamd_gpgkey_url }}"
         state: present
         # keyring: /etc/apt/trusted.gpg.d/rpsamd.gpg
 
     - name: Add specified repository into sources list
-      apt_repository:
+      ansible.builtin.apt_repository:
         repo: deb [arch=amd64] http://rspamd.com/apt-stable/ {{ ansible_lsb['codename'] }} main
         update_cache: yes
         state: present
         filename: rspamd
 
-  when: ansible_os_family == 'Debian'
-
-
 - name: Install rspamd
-  package:
+  ansible.builtin.package:
     name: "{{ rspamd_packages }}"
 
 - name: Create user
-  user:
+  ansible.builtin.user:
     name: rspamd
 
 - name: Start the rspamd servce
-  systemd:
+  ansible.builtin.systemd:
     name: "{{ rspamd_service }}"
-    enabled: True
+    enabled: true

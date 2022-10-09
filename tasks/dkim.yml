@@ -1,21 +1,22 @@
 ---
 
 - name: Disable DKIM by rspamd
-  copy:
+  ansible.builtin.copy:
     content: |
       enabled = false;
     dest: /etc/rspamd/local.d/dkim_signing.conf
     owner: root
     group: root
     mode: "0644"
-  when: not rspamd_dkim_active|bool
+  when: not rspamd_dkim_active | bool
   notify: Restart rspamd
 
 - name: DKIM active
+  when: rspamd_dkim_active | bool
   block:
 
     - name: Enable DKIM by rspamd
-      template:
+      ansible.builtin.template:
         src: dkim_signing.conf.j2
         dest: /etc/rspamd/local.d/dkim_signing.conf
         owner: root
@@ -24,7 +25,7 @@
       notify: Restart rspamd
 
     - name: Create DKIM directory
-      file:
+      ansible.builtin.file:
         path: /var/lib/rspamd/dkim
         state: directory
         owner: root
@@ -32,14 +33,14 @@
         mode: "0755"
 
     - name: Create DKIM keys
-      command: >
+      ansible.builtin.command: >
         openssl genrsa -out {{ rspamd_dkim_path }}/{{ item }}.dkim.key 2048
       args:
         creates: "{{ rspamd_dkim_path }}/{{ item }}.dkim.key"
       loop: "{{ rspamd_domains }}"
 
-    - name: Extract & convert DKIM keys
-      shell: |
+    - name: Extract & convert DKIM keys  # noqa no-free-form
+      ansible.builtin.shell: |
         set -o pipefail
         tmpfile=$(mktemp)
         openssl rsa -in {{ rspamd_dkim_path }}/{{ item }}.dkim.key -pubout | grep -v "PUBLIC" | tr -d '\n'
@@ -51,7 +52,7 @@
       loop: "{{ rspamd_domains }}"
 
     - name: Create DKIM public
-      template:
+      ansible.builtin.template:
         src: domain.key.pub.j2
         dest: "{{ rspamd_dkim_path }}/{{ item.item }}.dkim.key.pub"
         owner: rspamd
@@ -62,5 +63,3 @@
       loop_control:
         label:
           - "{{ item.item }}"
-
-  when: rspamd_dkim_active|bool

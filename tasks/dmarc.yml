@@ -1,10 +1,11 @@
 ---
 
 - name: DMARC - enabled
+  when: rspamd_dmarc_active | bool
   block:
 
     - name: Enable DMARC by rspamd
-      template:
+      ansible.builtin.template:
         src: dmarc.conf.j2
         dest: /etc/rspamd/local.d/dmarc.conf
         owner: root
@@ -13,7 +14,7 @@
       notify: Restart rspamd
 
     - name: Schedule dmarc reporting
-      cron:
+      ansible.builtin.cron:
         name: DMARC reporting
         weekday: '*'
         minute: '00'
@@ -21,15 +22,14 @@
         user: "{{ rspamd_learning_user }}"
         job: rspamadm dmarc_report
         cron_file: rspamd-dmarc
-      when: rspamd_learning_user is defined and rspamd_learning_user|length > 0
-
-  when: rspamd_dmarc_active|bool
+      when: rspamd_learning_user is defined and rspamd_learning_user | length > 0
 
 - name: DMARC - disabled
+  when: not rspamd_dmarc_active | bool
   block:
 
     - name: Disable DMARC by rspamd
-      copy:
+      ansible.builtin.copy:
         content: |
           enabled = false;
         dest: /etc/rspamd/local.d/dmarc.conf
@@ -37,5 +37,3 @@
         group: root
         mode: "0644"
       notify: Restart rspamd
-
-  when: not rspamd_dmarc_active|bool
