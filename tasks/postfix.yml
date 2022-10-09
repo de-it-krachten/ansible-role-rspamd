@@ -16,7 +16,7 @@
 
 - name: Configuring postfix (main.cf)  # noqa jinja[spacing]
   ansible.builtin.lineinfile:
-    path:   "/etc/postfix/main.cf"
+    path: "/etc/postfix/main.cf"
     regexp: "^(#)?{{ item.key }}(\\s)?=.*"
     line: >-
       {%- if item.key == 'smtpd_milters' -%}

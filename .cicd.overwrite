@@ -17,7 +17,7 @@ platforms:
   almalinux9:
     ci: false
     supported: false
-  ubuntu2204:
+  ubuntu1804:
     ci: false
     supported: false
   fedora35:
