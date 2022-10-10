@@ -1,14 +1,14 @@
 ---
 
 - name: Assertions
-  assert:
+  ansible.builtin.assert:
     that:
       - rspamd_organization is defined
       - rspamd_controller_password is defined
-      - rspamd_domains is defined and rspamd_domains|type_debug == 'list'
+      - rspamd_domains is defined and rspamd_domains | type_debug == 'list'
 
 - name: Load variables based on OS type
-  include_vars: "{{ lookup('first_found', params) }}"
+  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
       files:
@@ -20,11 +20,18 @@
       paths:
         - "vars"
 
-- include_tasks: install.yml
-- include_tasks: config.yml
-- include_tasks: dkim.yml
-- include_tasks: dmarc.yml
-- include_tasks: greylist.yml
-- include_tasks: postfix.yml
-- include_tasks: management.yml
+- name: Include install.yml
+  ansible.builtin.include_tasks: install.yml
+- name: Include config.yml
+  ansible.builtin.include_tasks: config.yml
+- name: Include dkim.yml
+  ansible.builtin.include_tasks: dkim.yml
+- name: Include dmarc.yml
+  ansible.builtin.include_tasks: dmarc.yml
+- name: Include greylist.yml
+  ansible.builtin.include_tasks: greylist.yml
+- name: Include postfix.yml
+  ansible.builtin.include_tasks: postfix.yml
+- name: Include management.yml
+  ansible.builtin.include_tasks: management.yml
   when: rspamd_learning_user is defined

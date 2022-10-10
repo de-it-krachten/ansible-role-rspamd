@@ -1,7 +1,7 @@
 ---
 
-- name: Get current smtpd_milter setting
-  shell: |
+- name: Get current smtpd_milter setting  # noqa no-free-form
+  ansible.builtin.shell: |
     set -o pipefail
     sed -n '/^smtpd_milter/p' /etc/postfix/main.cf | sed "s/.* = //"
   args:
@@ -11,18 +11,18 @@
   register: _milters
 
 - name: Merge smtpd_milters
-  set_fact:
-    smtpd_milters: "{{ ( _milters.stdout.split(',') + [ rspamd_postfix.smtpd_milters ] ) | unique }}"
+  ansible.builtin.set_fact:
+    smtpd_milters: "{{ (_milters.stdout.split(',') + [rspamd_postfix.smtpd_milters]) | unique }}"
 
-- name: Configuring postfix (main.cf)
-  lineinfile:
-    path:   "/etc/postfix/main.cf"
+- name: Configuring postfix (main.cf)  # noqa jinja[spacing]
+  ansible.builtin.lineinfile:
+    path: "/etc/postfix/main.cf"
     regexp: "^(#)?{{ item.key }}(\\s)?=.*"
     line: >-
       {%- if item.key == 'smtpd_milters' -%}
       {{ item.key }} = {{ smtpd_milters | join(',') }}
       {%- else -%}
-      {{ item.key }} = {{ (item.value|join(', ')) if item.value|type_debug == 'list' else item.value }}
+      {{ item.key }} = {{ (item.value | join(', ')) if item.value | type_debug == 'list' else item.value }}
       {%- endif -%}
   loop: "{{ rspamd_postfix | dict2items }}"
   notify: Restart postfix

@@ -6,6 +6,15 @@
 Installs & manages rspamd 
 
 
+
+## Dependencies
+
+#### Roles
+None
+
+#### Collections
+- community.general
+
 ## Platforms
 
 Supported platforms
@@ -58,12 +67,13 @@ rspamd_postfix:
   milter_protocol:                  '6'
 </pre></code>
 
+
 ### vars/family-RedHat.yml
 <pre><code>
 # GPG key for testing package integrity
 rspamd_gpgkey_url: https://rspamd.com/rpm-stable/gpg.key
 
-# rspamd_repo_url: https://rspamd.com/rpm-stable/{{ ansible_distribution|lower }}-{{ ansible_distribution_major_version }}/rspamd.repo
+# rspamd_repo_url: https://rspamd.com/rpm-stable/{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}/rspamd.repo
 rspamd_repo_url: https://rspamd.com/rpm-stable/centos-{{ ansible_distribution_major_version }}/rspamd.repo
 
 # List of packages to install
@@ -109,7 +119,7 @@ rspamd_service: rspamd
     postfix_ssl_chain: "{{ openssl_server_crt }}"
   pre_tasks:
     - name: Create 'remote_tmp'
-      file:
+      ansible.builtin.file:
         path: /root/.ansible/tmp
         state: directory
         mode: "0700"
@@ -119,6 +129,6 @@ rspamd_service: rspamd
     - postfix
   tasks:
     - name: Include role 'rspamd'
-      include_role:
+      ansible.builtin.include_role:
         name: rspamd
 </pre></code>
