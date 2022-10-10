@@ -27,7 +27,6 @@ Supported platforms
 - AlmaLinux 8
 - Debian 10 (Buster)
 - Debian 11 (Bullseye)
-- Ubuntu 18.04 LTS
 - Ubuntu 20.04 LTS
 
 Note:
@@ -62,9 +61,9 @@ rspamd_domains: []
 
 # Postfix setting for spamd integration
 rspamd_postfix:
-  smtpd_milters:                    'inet:localhost:11332'
-  milter_default_action:            accept
-  milter_protocol:                  '6'
+  smtpd_milters: 'inet:localhost:11332'
+  milter_default_action: accept
+  milter_protocol: '6'
 </pre></code>
 
 
