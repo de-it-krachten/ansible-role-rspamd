@@ -19,6 +19,5 @@ galaxy_info:
         - bullseye
     - name: Ubuntu
       versions:
-        - bionic
         - focal
 dependencies: []

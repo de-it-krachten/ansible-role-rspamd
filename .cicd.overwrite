@@ -17,6 +17,9 @@ platforms:
   almalinux9:
     ci: false
     supported: false
+  ubuntu1804:
+    ci: false
+    supported: false
   ubuntu2204:
     ci: false
     supported: false
