@@ -1,20 +1,20 @@
 ---
 
 - name: Activate redis
-  template:
+  ansible.builtin.template:
     src: redis.conf.j2
     dest: /etc/rspamd/local.d/redis.conf
     owner: root
     group: root
     mode: "0644"
-  when: rspamd_use_redis|bool
+  when: rspamd_use_redis | bool
 
 - name: Configure worker controller password
-  template:
+  ansible.builtin.template:
     src: worker-controller.inc.j2
     dest: /etc/rspamd/local.d/worker-controller.inc
     owner: root
     group: root
     mode: "0644"
   notify: Restart rspamd
-  when: rspamd_controller_password|length > 0
+  when: rspamd_controller_password | length > 0

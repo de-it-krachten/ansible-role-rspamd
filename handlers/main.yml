@@ -1,11 +1,11 @@
 ---
 
 - name: Restart rspamd
-  service:
+  ansible.builtin.service:
     name: rspamd
     state: restarted
 
 - name: Restart postfix
-  service:
+  ansible.builtin.service:
     name: postfix
     state: restarted
