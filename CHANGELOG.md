@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.2.0...v1.3.0) (2022-10-12)
+
+
+### Features
+
+* Move to FQCN ([12dec6d](https://github.com/de-it-krachten/ansible-role-rspamd/commit/12dec6d8b7bf6188f83c21e51e537e9bde0d2074))
+* Update CI to latest standards ([e486f79](https://github.com/de-it-krachten/ansible-role-rspamd/commit/e486f792ac10a20aa8c8929c745ada6eab4d8e9b))
+
 # [1.2.0](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.1.1...v1.2.0) (2022-07-28)
 
 
