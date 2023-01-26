@@ -24,7 +24,6 @@ Supported platforms
 - CentOS 7
 - RockyLinux 8
 - OracleLinux 8
-- OracleLinux 9
 - AlmaLinux 8
 - Debian 10 (Buster)
 - Debian 11 (Bullseye)
@@ -118,9 +117,9 @@ rspamd_service: rspamd
     postfix_ssl_key: "{{ openssl_server_key }}"
     postfix_ssl_chain: "{{ openssl_server_crt }}"
   roles:
-    - cron
-    - openssl
-    - postfix
+    - deitkrachten.cron
+    - deitkrachten.openssl
+    - deitkrachten.postfix
   tasks:
     - name: Include role 'rspamd'
       ansible.builtin.include_role:

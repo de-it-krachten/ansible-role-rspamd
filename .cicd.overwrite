@@ -17,6 +17,9 @@ platforms:
   almalinux9:
     ci: false
     supported: false
+  oraclelinux9:
+    ci: false
+    supported: false
   ubuntu1804:
     ci: false
     supported: false
@@ -33,9 +36,9 @@ platforms:
 molecule:
   converge:
     roles:
-      - cron
-      - openssl
-      - postfix
+      - deitkrachten.cron
+      - deitkrachten.openssl
+      - deitkrachten.postfix
     vars:
       rspamd_organization: 'Example Inc'
       rspamd_controller_password: '$2$hrr3pjpiie499r1e7tb1p4qxm84mqeo9$rkgidupktocmsiog5wnm6z93ui9t8jrqpw8ta4sq8dty6djo5bdb'
@@ -52,6 +55,6 @@ molecule:
       postfix_ssl_chain: "{{ openssl_server_crt }}"
   requirements:
     roles_extra:
-      - cron
-      - openssl
-      - postfix
+      - deitkrachten.cron
+      - deitkrachten.openssl
+      - deitkrachten.postfix
