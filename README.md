@@ -24,6 +24,7 @@ Supported platforms
 - CentOS 7
 - RockyLinux 8
 - OracleLinux 8
+- OracleLinux 9
 - AlmaLinux 8
 - Debian 10 (Buster)
 - Debian 11 (Bullseye)
@@ -103,7 +104,7 @@ rspamd_service: rspamd
 <pre><code>
 - name: sample playbook for role 'rspamd'
   hosts: all
-  become: "{{ molecule['converge']['become'] | default('yes') }}"
+  become: "yes"
   vars:
     rspamd_organization: Example Inc
     rspamd_controller_password: $2$hrr3pjpiie499r1e7tb1p4qxm84mqeo9$rkgidupktocmsiog5wnm6z93ui9t8jrqpw8ta4sq8dty6djo5bdb
@@ -116,12 +117,6 @@ rspamd_service: rspamd
     postfix_fqdn: host.example.com
     postfix_ssl_key: "{{ openssl_server_key }}"
     postfix_ssl_chain: "{{ openssl_server_crt }}"
-  pre_tasks:
-    - name: Create 'remote_tmp'
-      ansible.builtin.file:
-        path: /root/.ansible/tmp
-        state: directory
-        mode: "0700"
   roles:
     - cron
     - openssl
