@@ -67,13 +67,10 @@ rspamd_postfix:
 </pre></code>
 
 
-### vars/family-RedHat.yml
+### vars/family-Debian.yml
 <pre><code>
 # GPG key for testing package integrity
-rspamd_gpgkey_url: https://rspamd.com/rpm-stable/gpg.key
-
-# rspamd_repo_url: https://rspamd.com/rpm-stable/{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}/rspamd.repo
-rspamd_repo_url: https://rspamd.com/rpm-stable/centos-{{ ansible_distribution_major_version }}/rspamd.repo
+rspamd_gpgkey_url: https://rspamd.com/apt-stable/gpg.key
 
 # List of packages to install
 rspamd_packages:
@@ -83,10 +80,13 @@ rspamd_packages:
 rspamd_service: rspamd
 </pre></code>
 
-### vars/family-Debian.yml
+### vars/family-RedHat.yml
 <pre><code>
 # GPG key for testing package integrity
-rspamd_gpgkey_url: https://rspamd.com/apt-stable/gpg.key
+rspamd_gpgkey_url: https://rspamd.com/rpm-stable/gpg.key
+
+# rspamd_repo_url: https://rspamd.com/rpm-stable/{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}/rspamd.repo
+rspamd_repo_url: https://rspamd.com/rpm-stable/centos-{{ ansible_distribution_major_version }}/rspamd.repo
 
 # List of packages to install
 rspamd_packages:
