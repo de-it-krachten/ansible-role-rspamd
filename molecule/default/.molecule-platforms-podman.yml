@@ -49,7 +49,7 @@
   ci: false
   image: docker.io/dropveter/almalinux9-ansible
 - name: debian10
-  ci: true
+  ci: false
   image: docker.io/geerlingguy/docker-debian10-ansible:latest
 - name: debian11
   ci: true
@@ -65,7 +65,7 @@
   volumes:
     - /sys/fs/cgroup:/sys/fs/cgroup:ro
 - name: ubuntu2204
-  ci: false
+  ci: true
   image: docker.io/geerlingguy/docker-ubuntu2204-ansible:latest
 - name: fedora36
   ci: false

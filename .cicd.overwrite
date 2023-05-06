@@ -20,10 +20,10 @@ platforms:
   oraclelinux9:
     ci: false
     supported: false
-  ubuntu1804:
+  debian10:
     ci: false
     supported: false
-  ubuntu2204:
+  ubuntu1804:
     ci: false
     supported: false
   fedora36:

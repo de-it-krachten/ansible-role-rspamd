@@ -25,9 +25,9 @@ Supported platforms
 - RockyLinux 8
 - OracleLinux 8
 - AlmaLinux 8
-- Debian 10 (Buster)
 - Debian 11 (Bullseye)
 - Ubuntu 20.04 LTS
+- Ubuntu 22.04 LTS
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms

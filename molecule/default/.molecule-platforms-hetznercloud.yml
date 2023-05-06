@@ -21,7 +21,7 @@
   server_type: cx11
   image: rocky-9
 - name: debian10
-  ci: true
+  ci: false
   server_type: cx11
   image: debian-10
 - name: debian11
@@ -37,7 +37,7 @@
   server_type: cx11
   image: ubuntu-20.04
 - name: ubuntu2204
-  ci: false
+  ci: true
   server_type: cx11
   image: ubuntu-22.04
 - name: fedora36

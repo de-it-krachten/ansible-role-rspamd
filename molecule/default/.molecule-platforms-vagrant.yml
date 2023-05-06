@@ -41,7 +41,7 @@
   box: generic/alma9
   interfaces: [{'network_name': 'private_network', 'type': 'dhcp', 'auto_config': True}]
 - name: debian10
-  ci: true
+  ci: false
   box: generic/debian10
   interfaces: [{'network_name': 'private_network', 'type': 'dhcp', 'auto_config': True}]
 - name: debian11
@@ -57,7 +57,7 @@
   box: generic/ubuntu2004
   interfaces: [{'network_name': 'private_network', 'type': 'dhcp', 'auto_config': True}]
 - name: ubuntu2204
-  ci: false
+  ci: true
   box: generic/ubuntu2204
   interfaces: [{'network_name': 'private_network', 'type': 'dhcp'}]
 - name: fedora36
