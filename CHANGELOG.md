@@ -1,3 +1,12 @@
+# [1.4.0](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.3.0...v1.4.0) (2023-05-06)
+
+
+### Features
+
+* Add support for Ubuntu 22.04 LTS ([fd36a22](https://github.com/de-it-krachten/ansible-role-rspamd/commit/fd36a2291ce5227a6394ae669301e295f5fd8cb6))
+* Move to namespaced role names ([a50f7e3](https://github.com/de-it-krachten/ansible-role-rspamd/commit/a50f7e36eb9ea81f5bb7c9802b667aa797aaefc6))
+* Remove support for Debian 10 ([9db5b93](https://github.com/de-it-krachten/ansible-role-rspamd/commit/9db5b93bed343c11144610b8e75e2eaf003ec26d))
+
 # [1.3.0](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.2.0...v1.3.0) (2022-10-12)
 
 
