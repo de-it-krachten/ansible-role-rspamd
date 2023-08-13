@@ -25,7 +25,9 @@ Supported platforms
 - RockyLinux 8
 - OracleLinux 8
 - AlmaLinux 8
+- SUSE Linux Enterprise 15<sup>1</sup>
 - Debian 11 (Bullseye)
+- Debian 12 (Bookworm)
 - Ubuntu 20.04 LTS
 - Ubuntu 22.04 LTS
 
@@ -66,8 +68,7 @@ rspamd_postfix:
   milter_protocol: '6'
 </pre></code>
 
-
-### vars/family-Debian.yml
+### defaults/family-Debian.yml
 <pre><code>
 # GPG key for testing package integrity
 rspamd_gpgkey_url: https://rspamd.com/apt-stable/gpg.key
@@ -80,7 +81,7 @@ rspamd_packages:
 rspamd_service: rspamd
 </pre></code>
 
-### vars/family-RedHat.yml
+### defaults/family-RedHat.yml
 <pre><code>
 # GPG key for testing package integrity
 rspamd_gpgkey_url: https://rspamd.com/rpm-stable/gpg.key
@@ -95,6 +96,7 @@ rspamd_packages:
 # service to start/enable
 rspamd_service: rspamd
 </pre></code>
+
 
 
 
