@@ -46,6 +46,19 @@
         state: present
         filename: rspamd
 
+- name: Family Suse
+  when: ansible_os_family == 'Suse'
+  block:
+
+    - name: Import rspamd key
+      ansible.builtin.rpm_key:
+        state: present
+        key: "{{ rspamd_gpgkey_url }}"
+
+    - name: Suse mail
+      community.general.zypper_repository:
+        repo: https://download.opensuse.org/repositories/server:/mail/{{ ansible_distribution_version }}/server:mail.repo
+
 - name: Install rspamd
   ansible.builtin.package:
     name: "{{ rspamd_packages }}"

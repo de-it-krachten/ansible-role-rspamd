@@ -25,7 +25,6 @@ Supported platforms
 - RockyLinux 8
 - OracleLinux 8
 - AlmaLinux 8
-- SUSE Linux Enterprise 15<sup>1</sup>
 - Debian 11 (Bullseye)
 - Debian 12 (Bookworm)
 - Ubuntu 20.04 LTS
@@ -72,6 +71,22 @@ rspamd_postfix:
 <pre><code>
 # GPG key for testing package integrity
 rspamd_gpgkey_url: https://rspamd.com/apt-stable/gpg.key
+
+# List of packages to install
+rspamd_packages:
+  - rspamd
+
+# service to start/enable
+rspamd_service: rspamd
+</pre></code>
+
+### defaults/family-Suse.yml
+<pre><code>
+# GPG key for testing package integrity
+rspamd_gpgkey_url: https://rspamd.com/rpm-stable/gpg.key
+
+# rspamd_repo_url: https://rspamd.com/rpm-stable/{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}/rspamd.repo
+rspamd_repo_url: https://download.opensuse.org/repositories/server:/mail/{{ ansible_distribution_version }}/server:mail.repo
 
 # List of packages to install
 rspamd_packages:

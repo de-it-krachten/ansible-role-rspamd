@@ -23,6 +23,9 @@ platforms:
   opensuse15:
     ci: false
     supported: false
+  sles15:
+    ci: false
+    supported: false
   debian10:
     ci: false
     supported: false
