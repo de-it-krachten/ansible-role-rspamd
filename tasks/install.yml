@@ -1,18 +1,5 @@
 ---
 
-- name: Load variables based on OS type
-  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
-  vars:
-    params:
-      files:
-        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
-        - "{{ ansible_distribution }}.yml"
-        - "family-{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
-        - "family-{{ ansible_os_family }}.yml"
-        - default.yml
-      paths:
-        - "vars"
-
 - name: Family RedHat
   when: ansible_os_family == 'RedHat'
   block:
@@ -45,6 +32,19 @@
         update_cache: yes
         state: present
         filename: rspamd
+
+- name: Family Suse
+  when: ansible_os_family == 'Suse'
+  block:
+
+    - name: Import rspamd key
+      ansible.builtin.rpm_key:
+        state: present
+        key: "{{ rspamd_gpgkey_url }}"
+
+    - name: Suse repository
+      community.general.zypper_repository:
+        repo: "{{ rspamd_repo_url }}"
 
 - name: Install rspamd
   ansible.builtin.package:
