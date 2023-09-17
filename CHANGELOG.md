@@ -1,3 +1,15 @@
+# [1.5.0](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.4.0...v1.5.0) (2023-09-17)
+
+
+### Bug Fixes
+
+* Fix loop label to string ([b4c6637](https://github.com/de-it-krachten/ansible-role-rspamd/commit/b4c6637248a2e9848c12106f380984eb4bd9894c))
+
+
+### Features
+
+* Update supported platforms & CI ([c4e0792](https://github.com/de-it-krachten/ansible-role-rspamd/commit/c4e079210fbb256d7ed5e9056e8b7c9225d8914f))
+
 # [1.4.0](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.3.0...v1.4.0) (2023-05-06)
 
 
