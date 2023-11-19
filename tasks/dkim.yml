@@ -61,5 +61,4 @@
         backup: yes
       loop: "{{ _dkim.results }}"
       loop_control:
-        label:
-          - "{{ item.item }}"
+        label: "{{ item.item }}"
