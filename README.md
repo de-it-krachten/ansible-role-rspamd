@@ -67,10 +67,13 @@ rspamd_postfix:
   milter_protocol: '6'
 </pre></code>
 
-### defaults/family-Debian.yml
+### defaults/family-RedHat.yml
 <pre><code>
 # GPG key for testing package integrity
-rspamd_gpgkey_url: https://rspamd.com/apt-stable/gpg.key
+rspamd_gpgkey_url: https://rspamd.com/rpm-stable/gpg.key
+
+# rspamd_repo_url: https://rspamd.com/rpm-stable/{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}/rspamd.repo
+rspamd_repo_url: https://rspamd.com/rpm-stable/centos-{{ ansible_distribution_major_version }}/rspamd.repo
 
 # List of packages to install
 rspamd_packages:
@@ -96,13 +99,10 @@ rspamd_packages:
 rspamd_service: rspamd
 </pre></code>
 
-### defaults/family-RedHat.yml
+### defaults/family-Debian.yml
 <pre><code>
 # GPG key for testing package integrity
-rspamd_gpgkey_url: https://rspamd.com/rpm-stable/gpg.key
-
-# rspamd_repo_url: https://rspamd.com/rpm-stable/{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}/rspamd.repo
-rspamd_repo_url: https://rspamd.com/rpm-stable/centos-{{ ansible_distribution_major_version }}/rspamd.repo
+rspamd_gpgkey_url: https://rspamd.com/apt-stable/gpg.key
 
 # List of packages to install
 rspamd_packages:
@@ -120,19 +120,21 @@ rspamd_service: rspamd
 <pre><code>
 - name: sample playbook for role 'rspamd'
   hosts: all
-  become: "yes"
+  become: 'yes'
   vars:
     rspamd_organization: Example Inc
     rspamd_controller_password: $2$hrr3pjpiie499r1e7tb1p4qxm84mqeo9$rkgidupktocmsiog5wnm6z93ui9t8jrqpw8ta4sq8dty6djo5bdb
-    rspamd_domains: ['example.com', 'foo.bar']
-    dovecot_ssl_key: "{{ openssl_server_key }}"
-    dovecot_ssl_chain: "{{ openssl_server_crt }}"
+    rspamd_domains:
+      - example.com
+      - foo.bar
+    dovecot_ssl_key: '{{ openssl_server_key }}'
+    dovecot_ssl_chain: '{{ openssl_server_crt }}'
     dovecot_domain: example.com
-    postfix_ipv6: False
+    postfix_ipv6: false
     postfix_domain: example.com
     postfix_fqdn: host.example.com
-    postfix_ssl_key: "{{ openssl_server_key }}"
-    postfix_ssl_chain: "{{ openssl_server_crt }}"
+    postfix_ssl_key: '{{ openssl_server_key }}'
+    postfix_ssl_chain: '{{ openssl_server_crt }}'
   roles:
     - deitkrachten.cron
     - deitkrachten.openssl
