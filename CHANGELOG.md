@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.5.0...v1.5.1) (2024-04-12)
+
+
+### Bug Fixes
+
+* Change loop/label for latest ansible ([ccc36d1](https://github.com/de-it-krachten/ansible-role-rspamd/commit/ccc36d189570a336e547005e91b1cd219152a3a6))
+
 # [1.5.0](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.4.0...v1.5.0) (2023-09-17)
 
 
