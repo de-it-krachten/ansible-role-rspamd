@@ -29,6 +29,7 @@ Supported platforms
 - Debian 12 (Bookworm)
 - Ubuntu 20.04 LTS
 - Ubuntu 22.04 LTS
+- Ubuntu 24.04 LTS
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
@@ -67,6 +68,19 @@ rspamd_postfix:
   milter_protocol: '6'
 </pre></code>
 
+### defaults/family-Debian.yml
+<pre><code>
+# GPG key for testing package integrity
+rspamd_gpgkey_url: https://rspamd.com/apt-stable/gpg.key
+
+# List of packages to install
+rspamd_packages:
+  - rspamd
+
+# service to start/enable
+rspamd_service: rspamd
+</pre></code>
+
 ### defaults/family-RedHat.yml
 <pre><code>
 # GPG key for testing package integrity
@@ -90,19 +104,6 @@ rspamd_gpgkey_url: https://rspamd.com/rpm-stable/gpg.key
 
 # rspamd_repo_url: https://rspamd.com/rpm-stable/{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}/rspamd.repo
 rspamd_repo_url: https://download.opensuse.org/repositories/server:/mail/{{ ansible_distribution_version }}/server:mail.repo
-
-# List of packages to install
-rspamd_packages:
-  - rspamd
-
-# service to start/enable
-rspamd_service: rspamd
-</pre></code>
-
-### defaults/family-Debian.yml
-<pre><code>
-# GPG key for testing package integrity
-rspamd_gpgkey_url: https://rspamd.com/apt-stable/gpg.key
 
 # List of packages to install
 rspamd_packages:
