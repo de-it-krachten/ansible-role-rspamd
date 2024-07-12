@@ -1,3 +1,11 @@
+# [1.6.0](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.5.1...v1.6.0) (2024-07-12)
+
+
+### Features
+
+* Add support for Ubuntu 24.04 LTS + Fedora 40 ([f46b458](https://github.com/de-it-krachten/ansible-role-rspamd/commit/f46b4583f58640658144b1726eee4da8d0b35fed))
+* Remove support for RHEL/CentOS 7 ([d24eeee](https://github.com/de-it-krachten/ansible-role-rspamd/commit/d24eeeeb73e487840287e2751ef4dbb9b53def18))
+
 ## [1.5.1](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.5.0...v1.5.1) (2024-04-12)
 
 
