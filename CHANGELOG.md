@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.6.0...v1.7.0) (2024-12-29)
+
+
+### Features
+
+* Update supported platforms & CI ([4dc7c4b](https://github.com/de-it-krachten/ansible-role-rspamd/commit/4dc7c4bbe7a46fc85d3805fb3484ab64b9409e33))
+
 # [1.6.0](https://github.com/de-it-krachten/ansible-role-rspamd/compare/v1.5.1...v1.6.0) (2024-07-12)
 
 
