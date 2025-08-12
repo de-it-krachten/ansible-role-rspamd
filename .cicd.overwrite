@@ -11,13 +11,25 @@ platforms:
   rhel9:
     ci: false
     supported: false
+  rhel10:
+    ci: false
+    supported: false
   rockylinux9:
+    ci: false
+    supported: false
+  rockylinux10:
     ci: false
     supported: false
   almalinux9:
     ci: false
     supported: false
+  almalinux10:
+    ci: false
+    supported: false
   oraclelinux9:
+    ci: false
+    supported: false
+  oraclelinux10:
     ci: false
     supported: false
   opensuse15:
@@ -29,13 +41,16 @@ platforms:
   debian10:
     ci: false
     supported: false
+  debian13:
+    ci: false
+    supported: false
   ubuntu1804:
     ci: false
     supported: false
-  fedora40:
+  fedora41:
     ci: false
     supported: false
-  fedora41:
+  fedora42:
     ci: false
     supported: false
 
