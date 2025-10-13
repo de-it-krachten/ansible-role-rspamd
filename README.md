@@ -25,7 +25,6 @@ Supported platforms
 - AlmaLinux 8
 - Debian 11 (Bullseye)
 - Debian 12 (Bookworm)
-- Ubuntu 20.04 LTS
 - Ubuntu 22.04 LTS
 - Ubuntu 24.04 LTS
 
@@ -121,6 +120,7 @@ rspamd_service: rspamd
   hosts: all
   become: 'yes'
   vars:
+    molecule_driver: '{{ lookup(''env'', ''MOLECULE_DRIVER_NAME'') }}'
     rspamd_organization: Example Inc
     rspamd_controller_password: $2$hrr3pjpiie499r1e7tb1p4qxm84mqeo9$rkgidupktocmsiog5wnm6z93ui9t8jrqpw8ta4sq8dty6djo5bdb
     rspamd_domains:

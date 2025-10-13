@@ -20,18 +20,61 @@
   when: ansible_os_family == 'Debian'
   block:
 
-    - name: Import GPG key
-      ansible.builtin.apt_key:
+    - name: Download APT signing key
+      ansible.builtin.get_url:
         url: "{{ rspamd_gpgkey_url }}"
-        state: present
-        # keyring: /etc/apt/trusted.gpg.d/rpsamd.gpg
+        dest: /tmp/rspamd.asc
+        mode: "0644"
+      changed_when: false
 
-    - name: Add specified repository into sources list
-      ansible.builtin.apt_repository:
-        repo: deb [arch=amd64] https://rspamd.com/apt-stable/ {{ ansible_lsb['codename'] }} main
-        update_cache: yes
+    - name: Convert APT key into binary format
+      ansible.builtin.command:
+        cmd: >-
+          gpg
+          --batch
+          --yes
+          --no-tty
+          --dearmor
+          -o /tmp/rspamd.gpg
+          /tmp/rspamd.asc
+      changed_when: false
+
+    - name: Import Microsoft GPG key
+      ansible.builtin.apt_key:
         state: present
+        file: /tmp/rspamd.gpg
+        keyring: /etc/apt/trusted.gpg.d/rspamd.gpg
+      become: yes
+      when: ansible_distribution_major_version | int < 12
+
+    - name: Copy APT signing key into the proper drop-in directory
+      ansible.builtin.copy:
+        src: /tmp/rspamd.gpg
+        dest: /etc/apt/trusted.gpg.d/rspamd.gpg
+        remote_src: yes
+        mode: "0644"
+      when: ansible_distribution_major_version | int >= 12
+
+    - name: Setup Microsoft APT repository  # noqa jinja[spacing]
+      ansible.builtin.apt_repository:
         filename: rspamd
+        update_cache: yes
+        repo: >-
+          {%- if ansible_distribution_major_version | int < 12 -%}
+          deb
+          [arch=amd64,arm64]
+          https://rspamd.com/apt-stable
+          {{ ansible_distribution_release }}
+          main
+          {%- else -%}
+          deb
+          [arch=amd64,arm64 signed-by=/etc/apt/trusted.gpg.d/rspamd.gpg]
+          https://rspamd.com/apt-stable
+          {{ ansible_distribution_release }}
+          main
+          {%- endif -%}
+        state: present
+      become: yes
 
 - name: Family Suse
   when: ansible_os_family == 'Suse'
