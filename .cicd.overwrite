@@ -53,6 +53,9 @@ platforms:
   fedora42:
     ci: false
     supported: false
+  fedora43:
+    ci: false
+    supported: false
 
 molecule:
   converge:
