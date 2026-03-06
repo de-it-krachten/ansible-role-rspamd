@@ -7,55 +7,41 @@ generic:
   role_description: |
     Installs & manages rspamd 
 
+# Supported platforms
 platforms:
   rhel9:
-    ci: false
     supported: false
+    ci: false
   rhel10:
-    ci: false
     supported: false
+    ci: false
   rockylinux9:
-    ci: false
     supported: false
+    ci: false
   rockylinux10:
-    ci: false
     supported: false
-  almalinux9:
     ci: false
-    supported: false
-  almalinux10:
-    ci: false
-    supported: false
   oraclelinux9:
-    ci: false
     supported: false
+    ci: false
   oraclelinux10:
-    ci: false
     supported: false
-  opensuse15:
     ci: false
+  almalinux9:
     supported: false
-  sles15:
     ci: false
+  almalinux10:
     supported: false
-  debian10:
     ci: false
-    supported: false
   debian13:
-    ci: false
     supported: false
-  ubuntu1804:
     ci: false
-    supported: false
-  fedora41:
-    ci: false
-    supported: false
   fedora42:
-    ci: false
     supported: false
+    ci: false
   fedora43:
-    ci: false
     supported: false
+    ci: false
 
 molecule:
   converge:
